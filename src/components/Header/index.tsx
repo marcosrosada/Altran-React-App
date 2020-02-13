@@ -15,6 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
@@ -129,7 +130,9 @@ export default function MiniDrawer() {
               aria-controls={menuId}
               aria-haspopup="true"
               color="inherit"
-            ></IconButton>
+            >
+              <AccountCircle />
+            </IconButton>
           </div>
         </Toolbar>
       </AppBar>
