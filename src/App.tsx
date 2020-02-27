@@ -1,18 +1,19 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 // import ReduxToastr from "react-redux-toastr";
 
+import { Provider } from 'react-redux';
 import Main from './pages/Main';
-// import store from "./store";
+import store from './store';
 // import Routes from './routes';
 
 import GlobalStyle from './styles/global';
 
 const App = () => (
-  <Fragment>
+  <Provider store={store}>
     <Main />
     {/* <ReduxToastr /> */}
     <GlobalStyle />
-  </Fragment>
+  </Provider>
 );
 
 export default App;

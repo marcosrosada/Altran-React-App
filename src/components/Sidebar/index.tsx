@@ -1,64 +1,143 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 
-// import clsx from 'clsx';
-// import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-// import Drawer from '@material-ui/core/Drawer';
-// import AppBar from '@material-ui/core/AppBar';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import List from '@material-ui/core/List';
-// import CssBaseline from '@material-ui/core/CssBaseline';
-// import Typography from '@material-ui/core/Typography';
-// import Divider from '@material-ui/core/Divider';
-// import IconButton from '@material-ui/core/IconButton';
-// import Badge from '@material-ui/core/Badge';
-// import MenuIcon from '@material-ui/icons/Menu';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import AccountCircle from '@material-ui/icons/AccountCircle';
-// import MailIcon from '@material-ui/icons/Mail';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
-// import { Container } from './styles';
+import { ApplicationState } from '../../store';
+import * as SidebarActions from '../../store/ducks/sidebar/actions';
+import { Menu } from '../../store/ducks/sidebar/types';
 
-const Sidebar = () => (
-  <h1>SideBar</h1>
-  // <Drawer
-  //   variant="permanent"
-  //   className={clsx(classes.drawer, {
-  //     [classes.drawerOpen]: open,
-  //     [classes.drawerClose]: !open
-  //   })}
-  //   classes={{
-  //     paper: clsx({
-  //       [classes.drawerOpen]: open,
-  //       [classes.drawerClose]: !open
-  //     })
-  //   }}
-  // >
-  //   <div className={classes.toolbar} />
-  //   <List>
-  //     {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-  //       <ListItem button key={text}>
-  //         <ListItemIcon>
-  //           {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-  //         </ListItemIcon>
-  //         <ListItemText primary={text} />
-  //       </ListItem>
-  //     ))}
-  //   </List>
-  //   <Divider />
-  //   <List>
-  //     {['All mail', 'Trash', 'Spam'].map((text, index) => (
-  //       <ListItem button key={text}>
-  //         <ListItemIcon>
-  //           {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-  //         </ListItemIcon>
-  //         <ListItemText primary={text} />
-  //       </ListItem>
-  //     ))}
-  //   </List>
-  // </Drawer>
-);
+import clsx from 'clsx';
 
-export default Sidebar;
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+
+import TrendingUp from '@material-ui/icons/TrendingUp';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+
+import useStyles from './styles';
+
+interface StateProps {
+  open: boolean;
+  menuList: Menu[];
+}
+
+interface DispatchProps {
+  loadMenuRequest(): void;
+}
+
+type Props = StateProps & DispatchProps;
+
+const Sidebar = ({ open, menuList, loadMenuRequest }: Props) => {
+  useEffect(() => {
+    if (menuList.length === 0) {
+      loadMenuRequest();
+    }
+  }, [loadMenuRequest, menuList.length]);
+
+  const classes = useStyles();
+
+  const handleMenuClick = (e: Menu) => {
+    const list = menuList.map(item => {
+      if (item.id === e.id) {
+        item.open = !item.open;
+      }
+      return item;
+    });
+    console.log(list);
+    console.log(menuList);
+    return {
+      list
+    };
+  };
+  return (
+    <Drawer
+      variant="permanent"
+      className={clsx(classes.drawer, {
+        [classes.drawerOpen]: open,
+        [classes.drawerClose]: !open
+      })}
+      classes={{
+        paper: clsx({
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open
+        })
+      }}
+    >
+      <div className={classes.toolbar} />
+      <List>
+        {/* {menuList.map(menu => (
+          <div key={menu.id}>
+            <ListItemText>{menu.label}</ListItemText>
+            {menu.children.map(subMenu => (
+              <ListItem button key={subMenu.id} onClick={handleMenuClick}>
+                <ListItemIcon>
+                  <TrendingUp />
+                </ListItemIcon>
+                <ListItemText primary={subMenu.label} />
+              </ListItem>
+            ))}
+          </div>
+        ))} */}
+        {menuList.map(item => (
+          <List key={item.id}>
+            {item.children != null ? (
+              <div>
+                <ListItem button onClick={() => handleMenuClick(item)}>
+                  <ListItemIcon>
+                    <TrendingUp />
+                  </ListItemIcon>
+                  <ListItemText primary={item.label} />
+                  {item.open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse
+                  component="li"
+                  in={item.open}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <List disablePadding>
+                    {item.children.map(subItem => (
+                      <ListItem
+                        button
+                        key={subItem.id}
+                        className={classes.nested}
+                      >
+                        <ListItemIcon>
+                          <TrendingUp />
+                        </ListItemIcon>
+                        <ListItemText
+                          key={subItem.id}
+                          primary={subItem.label}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Collapse>{' '}
+              </div>
+            ) : (
+              <ListItem button onClick={() => handleMenuClick(item)}>
+                <ListItemText primary={item.label} />
+              </ListItem>
+            )}
+          </List>
+        ))}
+      </List>
+      {/* <Divider /> */}
+    </Drawer>
+  );
+};
+
+const mapStateToProps = (state: ApplicationState) => ({
+  open: state.sidebar.open,
+  menuList: state.sidebar.menuList
+});
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(SidebarActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

@@ -1,0 +1,70 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "open": true,
+      "icon": "",
+      "label": "Chart",
+      "path": "",
+      "children": [
+        {
+          "id": 2,
+          "icon": "",
+          "label": "DOI Count",
+          "path": ""
+        },
+        {
+          "id": 3,
+          "icon": "",
+          "label": "Bin Chart",
+          "path": ""
+        },
+        {
+          "id": 4,
+          "icon": "",
+          "label": "ADC Monitor",
+          "path": ""
+        },
+        {
+          "id": 5,
+          "icon": "",
+          "label": "Accuracy",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "open": false,
+      "icon": "",
+      "label": "My Reports",
+      "path": "",
+      "children": [
+        {
+          "id": 2,
+          "icon": "",
+          "label": "DOI Count",
+          "path": ""
+        },
+        {
+          "id": 3,
+          "icon": "",
+          "label": "Bin Chart",
+          "path": ""
+        },
+        {
+          "id": 4,
+          "icon": "",
+          "label": "ADC Monitor",
+          "path": ""
+        },
+        {
+          "id": 5,
+          "icon": "",
+          "label": "Accuracy",
+          "path": ""
+        }
+      ]
+    }
+  ]
+}
