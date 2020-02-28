@@ -17,7 +17,6 @@ const reducer: Reducer<SidebarState> = (
     case SidebarTypes.LOAD_MENU_REQUEST:
       return { ...state };
     case SidebarTypes.LOAD_MENU_SUCCESS:
-      console.log(action.payload.menuList);
       localStorage.setItem(
         '@AltranApp:menu',
         JSON.stringify(action.payload.menuList)
