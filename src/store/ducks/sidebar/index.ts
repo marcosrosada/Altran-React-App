@@ -4,7 +4,7 @@ import { SidebarState, SidebarTypes } from './types';
 
 const INITIAL_STATE: SidebarState = {
   open: true,
-  menuList: JSON.parse(localStorage.getItem('@AltranApp:menu'))
+  menuList: JSON.parse(localStorage.getItem('@AltranApp:menu') || '[]') || []
 };
 
 const reducer: Reducer<SidebarState> = (
@@ -17,6 +17,7 @@ const reducer: Reducer<SidebarState> = (
     case SidebarTypes.LOAD_MENU_REQUEST:
       return { ...state };
     case SidebarTypes.LOAD_MENU_SUCCESS:
+      console.log(action.payload.menuList);
       localStorage.setItem(
         '@AltranApp:menu',
         JSON.stringify(action.payload.menuList)

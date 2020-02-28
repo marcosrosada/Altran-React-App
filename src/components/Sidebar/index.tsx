@@ -29,11 +29,17 @@ interface StateProps {
 
 interface DispatchProps {
   loadMenuRequest(): void;
+  loadMenuSuccess(menuList: Menu[]): void;
 }
 
 type Props = StateProps & DispatchProps;
 
-const Sidebar = ({ open, menuList, loadMenuRequest }: Props) => {
+const Sidebar = ({
+  open,
+  menuList,
+  loadMenuRequest,
+  loadMenuSuccess
+}: Props) => {
   useEffect(() => {
     if (menuList.length === 0) {
       loadMenuRequest();
@@ -49,8 +55,8 @@ const Sidebar = ({ open, menuList, loadMenuRequest }: Props) => {
       }
       return item;
     });
-    console.log(list);
-    console.log(menuList);
+
+    loadMenuSuccess(list);
     return {
       list
     };
