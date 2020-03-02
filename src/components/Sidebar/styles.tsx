@@ -1,4 +1,17 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
+import styled from 'styled-components';
+
+export const ListSC = styled(List)`
+  padding: 0;
+`;
+
+export const ListItemSC = styled(ListItem)`
+  height: 45px;
+  background: ${props => props.color || '#F5F5F5'};
+`;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

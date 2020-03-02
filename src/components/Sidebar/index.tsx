@@ -12,6 +12,7 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 
 import ListItem from '@material-ui/core/ListItem';
+import { ListSC, ListItemSC } from './styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
@@ -48,7 +49,12 @@ const Sidebar = ({
 
   const classes = useStyles();
 
-  const handleMenuClick = (e: Menu) => {
+  const handleMenuClick = (
+    e: Menu,
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    index?: number
+  ) => {
+    console.log(event);
     const list = menuList.map(item => {
       if (item.id === e.id) {
         item.open = !item.open;
@@ -76,64 +82,47 @@ const Sidebar = ({
       }}
     >
       <div className={classes.toolbar} />
-      <List>
-        {/* {menuList.map(menu => (
-          <div key={menu.id}>
-            <ListItemText>{menu.label}</ListItemText>
-            {menu.children.map(subMenu => (
-              <ListItem button key={subMenu.id} onClick={handleMenuClick}>
+      {menuList.map(item => (
+        <ListSC key={item.id}>
+          {item.children != null ? (
+            <div>
+              <ListItemSC
+                button
+                onClick={event => handleMenuClick(item, event)}
+              >
                 <ListItemIcon>
                   <TrendingUp />
                 </ListItemIcon>
-                <ListItemText primary={subMenu.label} />
-              </ListItem>
-            ))}
-          </div>
-        ))} */}
-        {menuList.map(item => (
-          <List key={item.id}>
-            {item.children != null ? (
-              <div>
-                <ListItem button onClick={() => handleMenuClick(item)}>
-                  <ListItemIcon>
-                    <TrendingUp />
-                  </ListItemIcon>
-                  <ListItemText primary={item.label} />
-                  {item.open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse
-                  component="li"
-                  in={item.open}
-                  timeout="auto"
-                  unmountOnExit
-                >
-                  <List disablePadding>
-                    {item.children.map(subItem => (
-                      <ListItem
-                        button
-                        key={subItem.id}
-                        className={classes.nested}
-                      >
-                        <ListItemIcon>
-                          <TrendingUp />
-                        </ListItemIcon>
-                        <ListItemText
-                          key={subItem.id}
-                          primary={subItem.label}
-                        />
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>{' '}
-              </div>
-            ) : (
-              <ListItem button onClick={() => handleMenuClick(item)}>
                 <ListItemText primary={item.label} />
-              </ListItem>
-            )}
-          </List>
-        ))}
-      </List>
+                {item.open ? <ExpandLess /> : <ExpandMore />}
+              </ListItemSC>
+              <Collapse
+                component="li"
+                in={item.open}
+                timeout="auto"
+                unmountOnExit
+              >
+                <ListSC disablePadding>
+                  {item.children.map(subItem => (
+                    <ListItemSC
+                      button
+                      key={subItem.id}
+                      color="#e6e6e6"
+                      className={classes.nested}
+                    >
+                      <ListItemText key={subItem.id} primary={subItem.label} />
+                    </ListItemSC>
+                  ))}
+                </ListSC>
+              </Collapse>{' '}
+            </div>
+          ) : (
+            <ListItemSC button onClick={event => handleMenuClick(item, event)}>
+              <ListItemText primary={item.label} />
+            </ListItemSC>
+          )}
+        </ListSC>
+      ))}
       {/* <Divider /> */}
     </Drawer>
   );
