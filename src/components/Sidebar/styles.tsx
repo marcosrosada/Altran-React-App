@@ -1,16 +1,40 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import styled from 'styled-components';
 
-export const ListSC = styled(List)`
+interface MyProps {
+  weight?: string;
+  // etc...
+}
+
+export const StyledList = styled(List)`
   padding: 0;
 `;
 
-export const ListItemSC = styled(ListItem)`
+export const StyledListItem = styled(ListItem)`
   height: 45px;
-  background: ${props => props.color || '#F5F5F5'};
+  background: ${props => props.color || '#FFF'};
+`;
+
+export const StyledListItemIcon = styled(ListItemIcon)`
+  min-width: 0;
+  padding-right: 10px;
+`;
+
+export const StyledListItemText = styled(ListItemText)<MyProps>`
+  span {
+    font-size: 14px;
+    font-family: Nunito, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol';
+    line-height: 2px;
+    letter-spacing: normal;
+    font-weight: ${props => props.weight || 'normal'} !important;
+  }
 `;
 
 const useStyles = makeStyles((theme: Theme) =>

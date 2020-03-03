@@ -12,8 +12,12 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 
 import ListItem from '@material-ui/core/ListItem';
-import { ListSC, ListItemSC } from './styles';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import {
+  StyledList,
+  StyledListItem,
+  StyledListItemText,
+  StyledListItemIcon
+} from './styles';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 
@@ -83,45 +87,51 @@ const Sidebar = ({
     >
       <div className={classes.toolbar} />
       {menuList.map(item => (
-        <ListSC key={item.id}>
+        <StyledList key={item.id}>
           {item.children != null ? (
             <div>
-              <ListItemSC
+              <StyledListItem
                 button
                 onClick={event => handleMenuClick(item, event)}
               >
-                <ListItemIcon>
+                <StyledListItemIcon>
                   <TrendingUp />
-                </ListItemIcon>
-                <ListItemText primary={item.label} />
+                </StyledListItemIcon>
+                <StyledListItemText primary={item.label} weight="600" />
                 {item.open ? <ExpandLess /> : <ExpandMore />}
-              </ListItemSC>
+              </StyledListItem>
               <Collapse
                 component="li"
                 in={item.open}
                 timeout="auto"
                 unmountOnExit
               >
-                <ListSC disablePadding>
+                <StyledList disablePadding>
                   {item.children.map(subItem => (
-                    <ListItemSC
+                    <StyledListItem
                       button
                       key={subItem.id}
-                      color="#e6e6e6"
+                      color="#F5F5F5B8"
                       className={classes.nested}
                     >
-                      <ListItemText key={subItem.id} primary={subItem.label} />
-                    </ListItemSC>
+                      <StyledListItemText
+                        key={subItem.id}
+                        primary={subItem.label}
+                      />
+                    </StyledListItem>
                   ))}
-                </ListSC>
+                </StyledList>
               </Collapse>{' '}
             </div>
           ) : (
-            <ListItemSC button onClick={event => handleMenuClick(item, event)}>
+            <StyledListItem
+              button
+              onClick={event => handleMenuClick(item, event)}
+            >
               <ListItemText primary={item.label} />
-            </ListItemSC>
+            </StyledListItem>
           )}
-        </ListSC>
+        </StyledList>
       ))}
       {/* <Divider /> */}
     </Drawer>
