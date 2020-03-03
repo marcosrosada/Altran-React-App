@@ -65,6 +65,14 @@
           "path": ""
         }
       ]
+    },
+    {
+      "id": 30,
+      "open": false,
+      "icon": "",
+      "label": "Settings",
+      "path": "",
+      "children": null
     }
   ]
 }

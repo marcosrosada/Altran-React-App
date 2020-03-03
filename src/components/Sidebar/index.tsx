@@ -9,21 +9,18 @@ import { Menu } from '../../store/ducks/sidebar/types';
 import clsx from 'clsx';
 
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
+import Collapse from '@material-ui/core/Collapse';
 
-import ListItem from '@material-ui/core/ListItem';
 import {
   StyledList,
   StyledListItem,
   StyledListItemText,
   StyledListItemIcon
 } from './styles';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-
 import TrendingUp from '@material-ui/icons/TrendingUp';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import Settings from '@material-ui/icons/Settings';
 
 import useStyles from './styles';
 
@@ -51,14 +48,11 @@ const Sidebar = ({
     }
   }, [loadMenuRequest, menuList.length]);
 
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
   const classes = useStyles();
 
-  const handleMenuClick = (
-    e: Menu,
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index?: number
-  ) => {
-    console.log(event);
+  const handleCollapseMenuClick = (e: Menu) => {
     const list = menuList.map(item => {
       if (item.id === e.id) {
         item.open = !item.open;
@@ -67,10 +61,16 @@ const Sidebar = ({
     });
 
     loadMenuSuccess(list);
-    return {
-      list
-    };
   };
+
+  const handleMenuClick = (index: number, subIndex: number) => {
+    if (index && subIndex) {
+      console.log(index + subIndex);
+
+      setSelectedIndex(index + subIndex);
+    }
+  };
+
   return (
     <Drawer
       variant="permanent"
@@ -86,13 +86,13 @@ const Sidebar = ({
       }}
     >
       <div className={classes.toolbar} />
-      {menuList.map(item => (
+      {menuList.map((item, index) => (
         <StyledList key={item.id}>
           {item.children != null ? (
             <div>
               <StyledListItem
                 button
-                onClick={event => handleMenuClick(item, event)}
+                onClick={() => handleCollapseMenuClick(item)}
               >
                 <StyledListItemIcon>
                   <TrendingUp />
@@ -107,10 +107,12 @@ const Sidebar = ({
                 unmountOnExit
               >
                 <StyledList disablePadding>
-                  {item.children.map(subItem => (
+                  {item.children.map((subItem, subIndex) => (
                     <StyledListItem
                       button
                       key={subItem.id}
+                      selected={selectedIndex === index + subIndex}
+                      onClick={event => handleMenuClick(index, subIndex)}
                       color="#F5F5F5B8"
                       className={classes.nested}
                     >
@@ -126,9 +128,12 @@ const Sidebar = ({
           ) : (
             <StyledListItem
               button
-              onClick={event => handleMenuClick(item, event)}
+              onClick={() => handleCollapseMenuClick(item)}
             >
-              <ListItemText primary={item.label} />
+              <StyledListItemIcon>
+                <Settings />
+              </StyledListItemIcon>
+              <StyledListItemText primary={item.label} />
             </StyledListItem>
           )}
         </StyledList>

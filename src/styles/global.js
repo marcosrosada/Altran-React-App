@@ -13,7 +13,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #F5F5F5;
+    background: rgb(247, 249, 252);
     color: #495057;
     font-family: 'Source Sans Pro', sans-serif;
     text-rendering: optimizeLegibility !important;
