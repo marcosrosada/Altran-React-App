@@ -41,25 +41,25 @@
       "path": "",
       "children": [
         {
-          "id": 2,
+          "id": 21,
           "icon": "",
           "label": "DOI Count",
           "path": ""
         },
         {
-          "id": 3,
+          "id": 22,
           "icon": "",
           "label": "Bin Chart",
           "path": ""
         },
         {
-          "id": 4,
+          "id": 23,
           "icon": "",
           "label": "ADC Monitor",
           "path": ""
         },
         {
-          "id": 5,
+          "id": 26,
           "icon": "",
           "label": "Accuracy",
           "path": ""

@@ -63,12 +63,10 @@ const Sidebar = ({
     loadMenuSuccess(list);
   };
 
-  const handleMenuClick = (index: number, subIndex: number) => {
-    if (index && subIndex) {
-      console.log(index + subIndex);
+  const handleMenuClick = (index: number) => {
+    console.log(selectedIndex);
 
-      setSelectedIndex(index + subIndex);
-    }
+    setSelectedIndex(index);
   };
 
   return (
@@ -86,7 +84,7 @@ const Sidebar = ({
       }}
     >
       <div className={classes.toolbar} />
-      {menuList.map((item, index) => (
+      {menuList.map(item => (
         <StyledList key={item.id}>
           {item.children != null ? (
             <div>
@@ -107,12 +105,12 @@ const Sidebar = ({
                 unmountOnExit
               >
                 <StyledList disablePadding>
-                  {item.children.map((subItem, subIndex) => (
+                  {item.children.map(subItem => (
                     <StyledListItem
                       button
                       key={subItem.id}
-                      selected={selectedIndex === index + subIndex}
-                      onClick={event => handleMenuClick(index, subIndex)}
+                      selected={selectedIndex === subItem.id}
+                      onClick={event => handleMenuClick(subItem.id)}
                       color="#F5F5F5B8"
                       className={classes.nested}
                     >
