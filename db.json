@@ -11,24 +11,28 @@
           "id": 2,
           "icon": "",
           "label": "DOI Count",
+          "selected": false,
           "path": ""
         },
         {
           "id": 3,
           "icon": "",
           "label": "Bin Chart",
+          "selected": false,
           "path": ""
         },
         {
           "id": 4,
           "icon": "",
           "label": "ADC Monitor",
+          "selected": false,
           "path": ""
         },
         {
           "id": 5,
           "icon": "",
           "label": "Accuracy",
+          "selected": false,
           "path": ""
         }
       ]
@@ -44,24 +48,28 @@
           "id": 21,
           "icon": "",
           "label": "DOI Count",
+          "selected": false,
           "path": ""
         },
         {
           "id": 22,
           "icon": "",
           "label": "Bin Chart",
+          "selected": false,
           "path": ""
         },
         {
           "id": 23,
           "icon": "",
           "label": "ADC Monitor",
+          "selected": false,
           "path": ""
         },
         {
           "id": 26,
           "icon": "",
           "label": "Accuracy",
+          "selected": false,
           "path": ""
         }
       ]
@@ -71,6 +79,7 @@
       "open": false,
       "icon": "",
       "label": "Settings",
+      "selected": false,
       "path": "",
       "children": null
     }

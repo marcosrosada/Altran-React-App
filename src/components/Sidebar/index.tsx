@@ -63,10 +63,8 @@ const Sidebar = ({
     loadMenuSuccess(list);
   };
 
-  const handleMenuClick = (index: number) => {
-    console.log(selectedIndex);
-
-    setSelectedIndex(index);
+  const handleMenuClick = (e: Menu) => {
+    setSelectedIndex(e.id);
   };
 
   return (
@@ -110,7 +108,7 @@ const Sidebar = ({
                       button
                       key={subItem.id}
                       selected={selectedIndex === subItem.id}
-                      onClick={event => handleMenuClick(subItem.id)}
+                      onClick={() => handleMenuClick(subItem)}
                       color="#F5F5F5B8"
                       className={classes.nested}
                     >
@@ -126,7 +124,8 @@ const Sidebar = ({
           ) : (
             <StyledListItem
               button
-              onClick={() => handleCollapseMenuClick(item)}
+              selected={selectedIndex === item.id}
+              onClick={() => handleMenuClick(item)}
             >
               <StyledListItemIcon>
                 <Settings />

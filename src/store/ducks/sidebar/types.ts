@@ -15,6 +15,7 @@ export interface Menu {
   open: boolean;
   icon: string;
   label: string;
+  selected: boolean;
   path: string;
   children: Array<Menu>;
 }
