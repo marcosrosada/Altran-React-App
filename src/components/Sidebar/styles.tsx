@@ -18,6 +18,9 @@ export const StyledList = styled(List)`
 export const StyledListItem = styled(ListItem)`
   height: 45px;
   background: ${props => props.color || '#FFF'};
+
+  /* background-color: rgba(203, 217, 224, 0.5)
+  color: #3f515a */
 `;
 
 export const StyledListItemIcon = styled(ListItemIcon)`
